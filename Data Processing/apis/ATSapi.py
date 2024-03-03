@@ -5,12 +5,12 @@ from dateutil.relativedelta import relativedelta
 import json
 
 
-patient_list=pd.read_csv("./csv/hospital.patients.csv")
-pat_careunit=pd.read_csv("./csv/Patients List.csv")
-diagnoses_=pd.read_csv("./csv/hospital.patients.diagnoses.csv")
+patient_list=pd.read_csv("../csv/hospital.patients.csv")
+pat_careunit=pd.read_csv("../csv/Patients List.csv")
+diagnoses_=pd.read_csv("../csv/hospital.patients.diagnoses.csv")
 "../../index.html"
 #  Care unit preprocessor
-care_units=pd.read_csv("./csv/care_unit.csv")
+care_units=pd.read_csv("../csv/care_unit.csv")
 care_units["date"]=pd.to_datetime(care_units["start_time"]).dt.date
 care_units["time"]=pd.to_datetime(care_units["start_time"]).dt.time
 care_units["date"]=care_units["date"].astype(str)
@@ -19,7 +19,7 @@ care_units["date"]
 
 
 #  ICU patient details preprocessor
-icu_pat_detail=pd.read_csv("./csv/ml_dataset_icu.csv")
+icu_pat_detail=pd.read_csv("../csv/ml_dataset_icu.csv")
 icu_pat_detail["average_los"]=icu_pat_detail["average_los"].round(3)
 icu_pat_detail["date"]=pd.to_datetime(icu_pat_detail["shift_start_time"]).dt.date
 icu_pat_detail["time"]=pd.to_datetime(icu_pat_detail["shift_start_time"]).dt.time
@@ -29,15 +29,15 @@ icu_pat_detail["shift_type"]
 
 
 
-diagnoses_=pd.read_csv("./csv/hospital.patients.diagnoses.csv")
+diagnoses_=pd.read_csv("../csv/hospital.patients.diagnoses.csv")
 
 #  graphs preprocessor
-daily_aggregate=pd.read_csv("./csv/Daily_Agreagates_Trend.csv")
+daily_aggregate=pd.read_csv("../csv/Daily_Agreagates_Trend.csv")
 daily_aggregate["average_los"]=daily_aggregate["average_los"].round(3)
 daily_aggregate["date"]=pd.to_datetime(daily_aggregate["shift_date"]).dt.date
 daily_aggregate["date"]=daily_aggregate["date"].astype(str)
 
-patient_journey=pd.read_csv("./csv/hospital.transfers.csv")
+patient_journey=pd.read_csv("../csv/hospital.transfers.csv")
 patient_journey_col=["eventtype","careunit","date","time","updated_intime"]
 x=pd.to_datetime(patient_journey["updated_intime"])
 patient_journey["date"]=x.dt.date
@@ -47,9 +47,9 @@ patient_journey['date'] = patient_journey['date'].astype(str)
 # patient intake prediction
 import pickle
 filename = 'pi_xgboost.pkl'
-model_intake = pickle.load(open('apis/pi_xgboost.pkl',"rb"))
+model_intake = pickle.load(open('pi_xgboost.pkl',"rb"))
 
-model_los=pickle.load(open("apis/los_xgboost.pkl",'rb'))
+model_los=pickle.load(open("los_xgboost.pkl",'rb'))
 
 
 
